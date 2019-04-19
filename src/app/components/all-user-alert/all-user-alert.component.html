@@ -1,0 +1,18 @@
+<div id="allUserAlert" [attr.ids]="anData.allUserAlert.id">
+  <div class="alertBox goodposition" [ngStyle]="anData.allUserAlert.style">
+    <div class="alertContent">
+      <h2 class="alertTitle"><span>{{anData.allUserAlert.title}}-{{anData.allUserAlert.id}}</span><i class="fr" nz-icon [type]="'close'"
+          [theme]="'outline'"(click)="allUserAlertAjax({id:anData.allUserAlert.id,btnClick:false})"></i></h2>
+      <div class="alertText">
+        <p>{{anData.allUserAlert.msg}}</p>
+      </div>
+      <div class="alertBtn">
+        <button class="btnOk" nz-button nzSize="large" [nzLoading]="loadingShow"
+          (click)="allUserAlertAjax({id:anData.allUserAlert.id,btnClick:true})"
+          nzType="primary">{{anData.allUserAlert.btnOk}}</button>
+        <button class="btnClose" nz-button nzSize="large" nzType="danger"
+          (click)="allUserAlertAjax({id:anData.allUserAlert.id,btnClick:false})">{{anData.allUserAlert.btnClose}}</button>
+      </div>
+    </div>
+  </div>
+</div>

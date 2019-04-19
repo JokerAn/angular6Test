@@ -1,0 +1,25 @@
+<header>
+  <div class='fl logo textcenter'>
+    JokerAn
+  </div>
+  <div class='fl topSeach'>
+    <app-an-input [searchTopLeft]='[21,4]' [ClsoeTopRight]='[21,4]' [searchKey]="searchKey"
+      [anInutStyle]="{'border':'1px solid blue','line-height':'30px','width':'400px'}" (outer)='getUserInfo($event)'
+      [inputPlaceholder]='"搜索：员工 部门 职务等"'></app-an-input>
+  </div>
+  <ul class="fr userHeader">
+    <li>
+      <i class="lingdang"></i>
+    </li>
+    <li class="logoutChangPassword" (mouseleave)="logoutChangPasswordShow(false)">
+      <div (mousemove)="logoutChangPasswordShow(true)">
+        <i class="userHeadImg"></i>
+        <a>测试用户 <i nz-icon type="{{jiantouIcon}}"></i></a>
+      </div>
+      <ul *ngIf="logoutChangPassword" class="sanjiao">
+        <li (click)="changePassword()">修改密码</li>
+        <li (click)="logout()">退出</li>
+      </ul>
+    </li>
+  </ul>
+</header>

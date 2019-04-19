@@ -1,0 +1,60 @@
+@import '../../../assets/css/anPublic';
+header{
+  position: fixed;
+  background:#1a90ff;
+  width:100%;
+  height:60px;
+  @include border(#bbb,1px,0px);
+  line-height: 60px;
+  .logo{
+    font-weight: 700;
+    @include ftC(20px,#fff);
+    @include wh(220px,60px);
+    @include border(#bbb,1px,0px);
+    padding-left:20px;
+    padding-right:20px;
+    
+  }
+  .topSeach{
+    margin-left:50px;
+  }
+  .userHeader{
+    >li{float:left}
+    .logoutChangPassword{
+        position: relative;
+        width: 150px;
+        div{
+          a{
+            color:#fff;
+            margin-left: 10px;
+          }
+          .userHeadImg{
+            display: inline-block;
+            vertical-align: middle;
+            @include wh(30px,30px);
+            border-radius:50%;
+            margin:10px;
+            background: url("/assets/images/user@1x.png")no-repeat center center;
+          }
+        }
+        ul{
+          background-color: #fff;
+          @include border(#bbb);
+          position: absolute;
+          top:55px;
+          @include border(#bbb);
+          width: 150px;
+          li{
+            line-height: 35px;
+            text-align: center;
+            cursor: pointer;
+            &:hover{
+              background: #bbb;
+              color:#fff;
+            }
+          }
+        }
+      }
+  }
+  
+}

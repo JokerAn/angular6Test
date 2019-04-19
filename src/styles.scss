@@ -1,1 +1,196 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/css/anPublic.scss";
+//common
+.body{
+  background: red;
+  padding: 0;
+  margin: 0;
+  font-size:14px;
+  text-decoration: none;
+  border: none;
+  background: $bg;
+  z-index: 0;
+  font-family: "Microsoft Yahei",sans-serif;
+  color: #000;
+  li,ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  hr{
+    border: 0;
+  }
+  body,input,li,span,p{
+    outline: none;
+  }
+  em,i{
+    font-style: normal;
+  }
+  p,hr,h1, h3, h2, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+  }
+  p,div{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  input[type="button"], input[type="submit"], input[type="search"], input[type="reset"] {
+    -webkit-appearance: none;
+  }
+  .fl{
+    float: left;
+  }
+  .fr{
+    float: right;
+  }
+  .ellipsis{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .textcenter{text-align: center}
+  .anclear:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+  }
+  .goodposition{
+    position: absolute;top:50%;left:50%;
+    -webkit-transform:translate(-50%,-50%) ;
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform:translate(-50%,-50%) ;
+    -o-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+  }
+  .sanjiao:before{
+    content: '';
+    width: 21px;
+    height: 10px;
+    display: inline-block;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translate(-50%);
+    border: 10px solid #fff;
+    border-right: 10px solid transparent;
+    border-top: 0px solid transparent;
+    border-left: 10px solid transparent;
+  }
+.anzhezhaoceng{
+  position: absolute;
+  top:0;
+  left:0;bottom:0;right: 0;
+  background: rgba(0,0,0,.3);
+  z-index: 500;
+}
+
+  /*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+ 
+      ::-webkit-scrollbar
+    {
+      width: 6px;
+      height: 6px;
+      background-color: #F5F5F5;
+    }
+    /*定义滚动条轨道 内阴影+圆角*/
+    ::-webkit-scrollbar-track
+    {
+      box-shadow: inset 0 0 1px rgba(0,0,0,0);
+      border-radius: 10px;
+      background-color: #fff;
+    }
+    /*定义滑块 内阴影+圆角*/
+    ::-webkit-scrollbar-thumb
+    {
+      border-radius: 10px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background-color: #F5F5F5;
+    }
+
+    #edurpContain::-webkit-scrollbar
+    {
+      width: 10px;
+      height: 10px;
+      background-color: #F5F5F5;
+    }
+    /*定义滚动条轨道 内阴影+圆角*/
+    #edurpContain::-webkit-scrollbar-track
+    {
+      box-shadow: inset 0 0 1px rgba(0,0,0,0);
+      border-radius: 15px;
+      background-color: #fff;
+    }
+    /*定义滑块 内阴影+圆角*/
+    #edurpContain::-webkit-scrollbar-thumb
+    {
+      border-radius: 15px;
+      box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background-color: #f4f4f4;
+    }    
+
+  
+  /* 图标 start*/
+  .icon01{
+    background: url(./assets/images/sprite@1x.png);
+  }
+  .lingdang{
+    display: inline-block;
+    vertical-align: middle;
+    @include wh(20px,23px);
+    background: url('./assets/images/sprite@1x.png');
+    background-position: -373px -91px;
+    cursor: pointer;
+  }
+  .iconSearch01{
+    @include wh(20px,20px);
+    display: inline-block;
+    background-position: -206px -162px;
+  }
+  .iconClose01{
+    @include wh(20px,20px);
+    display: inline-block;
+    background-position: -96px -123px;;
+  }
+  .anradio1{
+    background: #fff;
+    position: absolute;
+    top:0;left:0; 
+    content: '234';
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    background-image: url(./assets/images/sprite@1x.png);
+    cursor: pointer;
+   
+  }
+  .anradio10{
+    background-position: -379px -59px; 
+
+  }
+   .anradio11{
+    background-position: -357px -59px;
+
+  }
+ 
+  .anradio2{
+    display: inline-block;
+      width: 30px;
+      height: 30px;
+      background-image: url(./assets/images/sprite@2x.png);
+      cursor: pointer;
+  }
+  .anradio20{
+    background-position: -756px -116px;
+  }
+  .anradio21{
+    background-position: -712px -116px;
+  }
+
+
+  /* 图标 end*/
+}

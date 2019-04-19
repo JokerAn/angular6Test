@@ -1,0 +1,42 @@
+@import "../../../assets/css/anPublic";
+#allUserAlert{
+  position: fixed;
+  top:0;left:0;bottom:0;right:0;
+  background: rgba(0, 0, 0, 0.2);
+  z-index: 5000;
+  .alertBox{
+    min-height: 180px;
+    padding:10px;
+    background: #fff;
+    @include border(#bbb,1px,3px);
+    .alertContent{
+      .alertTitle{
+        height: 40px;line-height: 40px;
+        border-bottom: 1px solid #bbb;
+        span{@include ftC(20px,$ambtnok);}
+        i{
+          line-height: 40px;
+          padding: 0px 10px;
+          color: #bbb;
+          cursor: pointer;
+        }
+      }
+      .alertText{
+        padding: 20px 20px;
+        @include ftC(18px,#111);
+      }
+      .alertBtn{
+        text-align: right;
+        button{display: inline-block;
+          margin-left: 25px;}
+        .btnOk{
+          @include ftC(16px,#fff);
+
+        }
+        .btnClsoe{
+          @include ftC(16px,#fff)
+        }
+      }
+    }
+  }
+}

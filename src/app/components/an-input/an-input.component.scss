@@ -1,0 +1,25 @@
+@import "../../../assets/css/anPublic";
+#anInput{
+  display: inline-block;
+  position: relative;
+  input{
+    width:100%;
+    padding:0 24px;
+    outline: none;
+    border: 1px solid $brC;
+    line-height: 26px;
+  }
+
+  i{
+        position: absolute;
+        cursor: pointer;
+  }
+  b{
+        position: absolute;
+        cursor: pointer;
+        display: none;
+  }
+  &:hover b{
+        display: inline-block;
+  }
+}

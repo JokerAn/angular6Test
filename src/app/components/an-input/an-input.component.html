@@ -1,0 +1,8 @@
+<div id="anInput">
+    <i class="icon01 iconSearch01 " [ngStyle]="{'top': searchTopLeft[0]+'px','left':searchTopLeft[1]+'px'}"
+        (click)="searchFucClick($event)"></i>
+    <input type="text" [(ngModel)]="searchKey" (keypress)="searchFuc($event)" [ngStyle]="anInutStyle" 
+    placeholder="{{inputPlaceholder}}">
+    <b class="icon01 iconClose01 " [ngStyle]="{'top': ClsoeTopRight[0]+'px','right':ClsoeTopRight[1]+'px'}"
+        (click)='clearSearchKey()'></b>
+</div>
