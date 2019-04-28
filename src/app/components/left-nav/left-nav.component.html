@@ -21,7 +21,7 @@
   <li nz-submenu nz-submenu [(nzOpen)]="openMap.sub2" (nzOpenChange)="openHandler('sub2')">
     <span title><i nz-icon type="setting"></i>员工管理</span>
     <ul>
-      <li nz-menu-item>员工列表</li>
+      <li nz-menu-item (click)="gotopage('/employeeList')">员工列表</li>
       <li nz-menu-item>添加员工</li>
     </ul>
   </li>

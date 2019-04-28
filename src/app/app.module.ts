@@ -23,6 +23,8 @@ import { HomeComponent } from './components/home/home.component';
 import { AnInputComponent } from './components/an-input/an-input.component';
 import { LeftNavComponent } from './components/left-nav/left-nav.component';
 import { HeaderComponent } from './components/header/header.component';
+import { EmployeeListComponent } from './components/employee-list/employee-list.component';
+import { SexPipe } from './pipe/sex.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,9 @@ import { HeaderComponent } from './components/header/header.component';
     HomeComponent,
     AnInputComponent,
     LeftNavComponent,
-    HeaderComponent
+    HeaderComponent,
+    EmployeeListComponent,
+    SexPipe
   ],
   imports: [
     BrowserModule,

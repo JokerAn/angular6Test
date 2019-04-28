@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-left-nav',
   templateUrl: './left-nav.component.html',
@@ -10,7 +10,7 @@ export class LeftNavComponent implements OnInit {
     sub1: true,
     sub2: false,
   };
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -25,5 +25,13 @@ export class LeftNavComponent implements OnInit {
     for (const key in this.openMap) {
       this.openMap[key] = false; 
     }
+  }
+  gotopage(pageUrl:any) { 
+    this.router.navigate([pageUrl], {
+      // relativeTo: this.routerInfo,//基于当前路由跳转
+      queryParams: {
+        'canshu': "娃哈哈" 
+      }
+    })
   }
 }

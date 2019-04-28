@@ -13,7 +13,6 @@ export class AppComponent {
   title = 'angular7';
   childZorrorBtnMsg = '我还没接受到子组件传递的值';
   searchKey = '';
-
   constructor(public apiUrls: apiUrlsService, public anData: AnDataService, public emmitAlert: EmmitAlertService){
     if (this.emmitAlert.$on) {
       this.emmitAlert.$on.subscribe((emmitData: any) => {

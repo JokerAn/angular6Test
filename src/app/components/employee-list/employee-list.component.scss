@@ -1,0 +1,29 @@
+
+@import '../../../assets/css/anPublic';
+.titleTop{
+  padding:20px;
+  @include ftC(20px,#111,700);
+}
+#asdf *{
+  box-sizing: border-box;
+}
+#employeeList{
+  padding:10px;
+  th{
+    padding:16px 6px;
+    font-weight: 700;
+  }
+  td{
+    height:28px;
+    line-height: 28px;
+    padding:4px 6px;
+  }
+}
+.edits{
+  a{
+    padding:0 2px;
+    &:first-child{
+      margin-right: 2px;
+    }
+  }
+}

@@ -19,8 +19,9 @@ $brC:#ebe8ef;//边框灰色
   line-height:$line-height;
 }
 //字体大小，颜色
-@mixin ftC($size, $color){
+@mixin ftC($size, $color,$ftW:400){
   font-size: $size;
+  font-weight: $ftW;
   color: $color;
 }
 //上 右下左
