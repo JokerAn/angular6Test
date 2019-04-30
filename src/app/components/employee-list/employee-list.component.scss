@@ -1,14 +1,13 @@
 
 @import '../../../assets/css/anPublic';
-.titleTop{
-  padding:20px;
-  @include ftC(20px,#111,700);
+#employeeListBox{
+  padding:10px;
 }
+
 #asdf *{
   box-sizing: border-box;
 }
 #employeeList{
-  padding:10px;
   th{
     padding:16px 6px;
     font-weight: 700;

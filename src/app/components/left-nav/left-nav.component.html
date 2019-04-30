@@ -22,7 +22,7 @@
     <span title><i nz-icon type="setting"></i>员工管理</span>
     <ul>
       <li nz-menu-item (click)="gotopage('/employeeList')">员工列表</li>
-      <li nz-menu-item>添加员工</li>
+      <li nz-menu-item (click)="gotopage('/addemployee',{a:2})">添加员工</li>
     </ul>
   </li>
   <li nz-menu-item (click)="openHandlers()">

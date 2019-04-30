@@ -25,6 +25,7 @@ import { LeftNavComponent } from './components/left-nav/left-nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { SexPipe } from './pipe/sex.pipe';
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import { SexPipe } from './pipe/sex.pipe';
     LeftNavComponent,
     HeaderComponent,
     EmployeeListComponent,
-    SexPipe
+    SexPipe,
+    AddEmployeeComponent
   ],
   imports: [
     BrowserModule,

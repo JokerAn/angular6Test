@@ -14,7 +14,7 @@ export class NoopInterceptor implements HttpInterceptor {
     if (req.params && req.params.updates) {
       if (req.params.updates.some((item: any) => {
         return item.param == 'hiddeLoading' && item.value == true
-      })) {
+      }) || req.url.includes('hiddeLoading')) {
         req.params.updates = req.params.updates.filter(item => {
           return item.param != 'hiddeLoading'
         })
@@ -24,7 +24,7 @@ export class NoopInterceptor implements HttpInterceptor {
       }
     }
     if (req.body) {
-      if (req.body.hiddeLoading === true) {
+      if (req.body.hiddeLoading === true || req.url.includes('hiddeLoading')) {
         delete req.body.hiddeLoading
       } else {
         this.anData.loading.loadingDisplay = 'block';

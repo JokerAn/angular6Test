@@ -22,16 +22,16 @@ export class AnHttpService {
     if (indexs == -1) {
       this.anData.loading.loadingDisplay = 'none';
       this.anData.loading.array.length = 0;
-      // console.log('我关闭了loading！')
+      console.log('我关闭了loading！')
     } else {
       this.anData.loading.array[indexs] = 2;
       let indexs2 = this.anData.loading.array.indexOf(1);
       if (indexs2 == -1) {
         this.anData.loading.loadingDisplay = 'none';
         this.anData.loading.array.length = 0;
-        // console.log('我关闭了loading！')
+        console.log('我关闭了loading！')
       } else {
-        // console.log('this.anData.loading.array.里面还有 1 ！'+JSON.stringify(this.anData.loading.array))
+        console.log('this.anData.loading.array.里面还有 1 ！'+JSON.stringify(this.anData.loading.array))
       }
     }
   }

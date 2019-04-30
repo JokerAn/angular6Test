@@ -1,0 +1,41 @@
+<div id="addEmployeeBox" class="rightContentBox">
+  <h3>新增员工</h3>
+  <div class="addEmployeeInfos anclear">
+    <ul class="fl">
+      <li>姓名</li>
+      <li><input nz-input  [(ngModel)]="employeeName" type="text"></li>
+      <li>电话</li>
+      <li><input nz-input  [(ngModel)]="employeePhone" (keyup)="employeePhoneChange($event)" type="text"></li>
+      <li>出生年月</li>
+      <li>
+        <nz-date-picker  [(ngModel)]="employeeBirthday"  [nzStyle]="inputTimeStyle"></nz-date-picker>
+      </li>
+      <li>性别</li>
+      <li>
+        <nz-radio-group [(ngModel)]="employeeSex">
+          <label nz-radio nzValue="1">男</label>
+          <label nz-radio nzValue="2">女</label>
+        </nz-radio-group>
+      </li>
+      <li>状态</li>
+      <li><input nz-input  [(ngModel)]="employeeState" type="text"></li>
+    </ul>
+    <div class="fr">
+      <div>
+        <nz-upload class="avatar-uploader" nzAction="https://jsonplaceholder.typicode.com/posts/?hiddeLoading=true" nzName="avatar"
+          nzListType="picture-card" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload"
+          (nzChange)="handleChange($event)">
+          <ng-container *ngIf="!avatarUrl">
+            <i class="upload-icon" nz-icon [type]="loading ? 'loading' : 'plus'"></i>
+            <div class="ant-upload-text">Upload</div>
+          </ng-container>
+          <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar" />
+        </nz-upload>
+      </div>
+      <button>点击更换头像</button>
+    </div>
+    <div>
+      <button (click)="addEmployeeAjax()">提交</button>
+    </div>
+  </div>
+</div>

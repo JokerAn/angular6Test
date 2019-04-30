@@ -26,12 +26,10 @@ export class LeftNavComponent implements OnInit {
       this.openMap[key] = false; 
     }
   }
-  gotopage(pageUrl:any) { 
+  gotopage(pageUrl: any, canshu = {}) { 
     this.router.navigate([pageUrl], {
       // relativeTo: this.routerInfo,//基于当前路由跳转
-      queryParams: {
-        'canshu': "娃哈哈" 
-      }
+      queryParams: canshu
     })
   }
 }
