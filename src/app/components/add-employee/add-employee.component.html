@@ -19,23 +19,16 @@
       </li>
       <li>状态</li>
       <li><input nz-input  [(ngModel)]="employeeState" type="text"></li>
+      <div class="addEmployeeAjax">
+        <button nz-button nzType="primary" (click)="addEmployeeAjax()">提交</button>
+      </div>
     </ul>
     <div class="fr">
-      <div>
-        <nz-upload class="avatar-uploader" nzAction="https://jsonplaceholder.typicode.com/posts/?hiddeLoading=true" nzName="avatar"
-          nzListType="picture-card" [nzShowUploadList]="false" [nzBeforeUpload]="beforeUpload"
-          (nzChange)="handleChange($event)">
-          <ng-container *ngIf="!avatarUrl">
-            <i class="upload-icon" nz-icon [type]="loading ? 'loading' : 'plus'"></i>
-            <div class="ant-upload-text">Upload</div>
-          </ng-container>
-          <img *ngIf="avatarUrl" [src]="avatarUrl" class="avatar" />
-        </nz-upload>
-      </div>
-      <button>点击更换头像</button>
+      <span class="upLoadFile upLoadFiles"> 
+        <img [src]="imgUrl" style="width:100px;height:100px"/>
+        <input style="border:1px solid" type="file"(change)="changeTouXiang($event)">原生更换头像
+      </span>
     </div>
-    <div>
-      <button (click)="addEmployeeAjax()">提交</button>
-    </div>
+    
   </div>
 </div>

@@ -2,21 +2,36 @@
   padding:10px;
   .addEmployeeInfos{
     width: 700px;
+    li{
+      padding:5px 0;
+    }
     input{
       width:350px;
     }
   }
-
 }
 .avatar {
-        width: 128px;
-        height: 128px;
-      }
-      .upload-icon {
-        font-size: 32px;
-        color: #999;
-      }
-      .ant-upload-text {
-        margin-top: 8px;
-        color: #666;
-      }
+  width: 128px;
+  height: 128px;
+}
+.upload-icon {
+  font-size: 32px;
+  color: #999;
+}
+.ant-upload-text {
+  margin-top: 8px;  
+  color: #666;
+}
+.upLoadFiles{
+  border:1px solid #ddd;
+  input{cursor: pointer};
+}
+.addEmployeeAjax{
+  margin-top:20px;
+  text-align: center;
+  button{
+  width:200px;
+  height: 40px;
+  }
+  
+}

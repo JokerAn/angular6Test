@@ -3,6 +3,7 @@ import { apiUrlsService } from "./services/api-urls.service";
 import { AnDataService } from './services/an-data.service';
 import { EmmitAlertService } from './services/emmit-alert.service';
 import * as mongoose from 'mongoose';
+import { AnHttpService } from './services/an-http.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent {
   title = 'angular7';
   childZorrorBtnMsg = '我还没接受到子组件传递的值';
   searchKey = '';
-  constructor(public apiUrls: apiUrlsService, public anData: AnDataService, public emmitAlert: EmmitAlertService){
+  constructor(public apiUrls: apiUrlsService, public anData: AnDataService, public emmitAlert: EmmitAlertService,
+    public anhttp: AnHttpService) {
     if (this.emmitAlert.$on) {
       this.emmitAlert.$on.subscribe((emmitData: any) => {
         console.group('我是app.component.ts页面接收到的emmitAlert--' + emmitData.id);
@@ -51,9 +53,25 @@ export class AppComponent {
     }
   }
   ngOnInit(): void {
-    
+    this.login();
   }
-
+  login() {
+    let data = {
+      // hiddeLoading:true,
+      username: 'renee.chan@renee-arts.com',
+      password:123456
+    };
+    this.anhttp.post(this.apiUrls.login, data).subscribe(
+      (request) => {
+        localStorage.user_token = request.tokenType + ' ' + request.token;
+        sessionStorage.changeIE = 'sss';
+        sessionStorage.emmitNames = '[]';//广播事件名称
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
 
   
 

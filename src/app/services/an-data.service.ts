@@ -24,9 +24,9 @@ export class AnDataService {
     btnClose: '取消',
     style: { width: '400px' }
   };
-  public allUserAlertShow(alertShow =true, res?: {}) {
+  public allUserAlertShow(alertShow = true, res?: {}) {
     if (alertShow) {
-      res&&console.log(res);
+      res && console.log(res);
       this.allUserAlert = Object.assign({}, {
         id: 'allUserAlert',
         popShow: true,
@@ -51,9 +51,10 @@ export class AnDataService {
   };
   public loading: any = {
     array: [],
-    loadingDisplay:'none'
+    loadingDisplay: 'none'
   };
   public showMsg(msg = '', time = 2500, type = 'success') {
     this.NzMessageService[type](msg, { nzDuration: time })
   }
+  
 }

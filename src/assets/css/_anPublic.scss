@@ -21,11 +21,11 @@ $brC:#ebe8ef;//边框灰色
 //字体大小，颜色
 @mixin ftC($size, $color,$ftW:400){
   font-size: $size;
-  font-weight: $ftW;
   color: $color;
+  font-weight: $ftW;
 }
 //上 右下左
-@mixin postion($top, $right,$bottom,$left){
+@mixin position($top, $right,$bottom,$left){
   top: $top;
   right: $right;
   bottom: $bottom;

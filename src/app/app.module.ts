@@ -14,7 +14,7 @@ import { ZorrorBtnComponent } from './components/zorror-btn/zorror-btn.component
 import { AnHttpService } from "./services/an-http.service";
 import { apiUrlsService } from "./services/api-urls.service";
 registerLocaleData(zh);
-
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 //拦截器
 import { httpInterceptorProviders } from '../assets/js/httpLanJie/index';
 import { AllUserAlertComponent } from './components/all-user-alert/all-user-alert.component'
@@ -26,6 +26,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { EmployeeListComponent } from './components/employee-list/employee-list.component';
 import { SexPipe } from './pipe/sex.pipe';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { RegisterComponent } from './components/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +38,8 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
     HeaderComponent,
     EmployeeListComponent,
     SexPipe,
-    AddEmployeeComponent
+    AddEmployeeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN }, AnHttpService, apiUrlsService, httpInterceptorProviders,
-    { provide: RouteReuseStrategy, useClass: AppRoutingKeepAlive }
+    { provide: RouteReuseStrategy, useClass: AppRoutingKeepAlive },
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })

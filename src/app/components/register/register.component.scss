@@ -1,0 +1,44 @@
+@import '../../../assets/css/anPublic';
+#register{
+  position:fixed;
+  @include position(0,0,0,0);
+  z-index: 1100;
+  background:url('../../../assets/images/registerBackground.jpg') no-repeat center center;
+  background-size: cover;
+  .registerInputGroup{
+    @include goodPos(absolute,1);
+    @include border();
+    padding:50px;
+    background:#fff;
+    ul{
+      li{
+        line-height: 26px;
+        margin-bottom:10px;
+        span{
+          text-align: right;
+          display: inline-block;
+          width:60px;
+        }
+        input{
+          width:200px;
+        }
+        h2{
+          @include ftC(14px,green,700);
+          text-align: center;
+          cursor: pointer;
+        }
+      }
+    }
+    .xieyi{
+      text-align: center;
+    }
+  }
+  .JokerAnXiYi{
+    @include goodPos(absolute,2);
+    @include border();
+    padding:20px;
+    background:#fff;
+    @include wh(600px,450px);
+    overflow: auto;
+  }
+}

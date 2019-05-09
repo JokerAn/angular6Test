@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   logoutChangPassword = false;
+  searchKey = '';
   constructor(public router:Router) { }
 
   ngOnInit() {
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit {
     this.logoutChangPassword = false;
   }
   getUserInfo(searchKey:any) { 
+    console.log('this.searchKey= ' + searchKey);
     console.log('你要搜索的是 ' + searchKey);
   };
 }

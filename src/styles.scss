@@ -136,6 +136,14 @@
       background-color: #f4f4f4;
     }    
 
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    input[type="number"]{
+        -moz-appearance: textfield;
+      }
+
   
   /* 图标 start*/
   .icon01{
@@ -203,4 +211,19 @@
   >h3{
     @include ftC(20px,#111,700);
   }
+}
+/*上传文件*/
+.upLoadFile{
+  display: inline-block;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    position: relative;
+  input{
+    position: absolute;
+    @include position(0,0,0,0);
+    vertical-align: middle;
+    opacity: 0;
+  }
+  
 }

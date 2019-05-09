@@ -13,7 +13,16 @@ export class EmployeeListComponent implements OnInit {
   edit: false;
   canshu: any;
   employeeList: any;
+  employeeListCopy: any;
   widthConfig = ['200px', '100px', '100px', '100px', '100px', '100px', '100px', '100px'];
+  searchMore: boolean = false;
+  searchCondition: any = {
+    bianma: null,
+    name:null,
+    sex:null,
+    age: null,
+    state: null
+  }
   constructor(private routeInfo: ActivatedRoute, private anData: AnDataService, public emmitAlert: EmmitAlertService) {
     this.routeInfo.queryParams.subscribe((res) => {
       this.canshu = res.id;
@@ -45,13 +54,13 @@ export class EmployeeListComponent implements OnInit {
   //请求员工list数据
   getEmployee() { 
     this.employeeList = [
-      { bianma: 'esss-ffff-0001', name: '张三', sex: null, age: '18', job: '屠夫', state: '2', remark: '我是张三' },
+      { bianma: 'esss-ffff-0001', name: '张三', sex: null, age: '10', job: '屠夫', state: '2', remark: '我是张三' },
       { bianma: 'esss-ffff-0003esss-ffff-0003esss-ffff-0003', name: '女帝', sex: '0', age: '18', job: '模特', state: '2', remark: '凤凰居民' },
-      { bianma: 'esss-ffff-0004', name: '娜美', sex: '0', age: '18', job: '司机', state: '1', remark: '宣传部规划' },
-      { bianma: 'esss-ffff-0002', name: '李四', sex: null, age: '18', job: '饲养员', state: '1', remark: '我是张三' },
-      { bianma: 'esss-ffff-0005', name: '路飞', sex: '1', age: '18', job: '海贼', state: '2', remark: '而非' },
-      { bianma: 'esss-ffff-0006', name: '山治', sex: '1', age: '18', job: 'w厨师', state: '2', remark: '撒旦法' },
-      { bianma: 'esss-ffff-0006', name: '山治大哥', sex: '1', age: '28', job: '力量', state: '2', remark: '防辐射的女' },
+      { bianma: 'esss-ffff-0004', name: '娜美', sex: '0', age: '12', job: '司机', state: '1', remark: '宣传部规划' },
+      { bianma: 'esss-ffff-0002', name: '李四', sex: null, age: '13', job: '饲养员', state: '1', remark: '我是张三' },
+      { bianma: 'esss-ffff-0005', name: '路飞', sex: '1', age: '14', job: '海贼', state: '2', remark: '而非' },
+      { bianma: 'esss-ffff-0006', name: '山治', sex: '1', age: '15', job: 'w厨师', state: '2', remark: '撒旦法' },
+      { bianma: 'esss-ffff-0006', name: '山治大哥', sex: '1', age: '18', job: '力量', state: '2', remark: '防辐射的女' },
       { bianma: 'esss-ffff-0006', name: '山治二哥', sex: '1', age: '25', job: '火', state: '2', remark: '昂和备案的说法' },
       { bianma: 'esss-ffff-0006', name: '山治老爸', sex: '1', age: '58', job: '将军', state: '2', remark: '撒生日歌旦法' },
       { bianma: 'esss-ffff-0007', name: '索隆', sex: '1', age: '18', job: '剑客', state: '1', remark: '阿斯顿发' }
@@ -59,6 +68,7 @@ export class EmployeeListComponent implements OnInit {
     this.employeeList.map((item) => { 
       item.edit = false;
     })
+    this.employeeListCopy = JSON.parse(JSON.stringify(this.employeeList));
   }
   //新增一条数据
   addEmployeeList(res:any) { 
@@ -107,5 +117,44 @@ export class EmployeeListComponent implements OnInit {
   notSaveEidtEmployeeOnleInfo(indexs) { 
     this.getEmployee();
     console.log(this.employeeList);
+  }
+  //重置
+  searchClear() { 
+    for (let key in this.searchCondition) {
+      this.searchCondition[key] = null;
+    }
+    this.getEmployee();
+
+  }
+  //展开收起
+  searchMoreF(res:boolean) { 
+    if (res) {
+      this.searchMore = true;
+    } else { 
+      this.searchCondition.age = '';
+      this.searchCondition.sex = null;
+      this.searchCondition.state = '';
+      this.searchMore = false;
+    }
+  }
+  public searchConditionFinally:any;
+  searchF() {
+    console.log(this.employeeListCopy);
+    this.searchConditionFinally = {};
+    for (let key in this.searchCondition) { 
+      if (this.searchCondition[key]) { 
+        this.searchConditionFinally[key] = this.searchCondition[key]
+      }
+    }
+    this.employeeList = this.employeeListCopy.filter((item:any) => { 
+      if (item.name.includes(this.searchCondition.name||'')) { 
+        return item
+      }
+    })
+    console.log(this.employeeList);
+    
+
+    
+    
   }
 }

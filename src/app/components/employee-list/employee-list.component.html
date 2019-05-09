@@ -1,7 +1,30 @@
-<div id="employeeListBox">
+<div id="employeeListBox" class="rightContentBox">
   <h3 class="titleTop">员工列表</h3>
-  <nz-table id="employeeList" nzBordered #employeeLists [nzData]="employeeList" [nzFrontPagination]="false" [nzShowPagination]="false"
-    [nzScroll]="{ x: '900px', y: '340px' }" [nzWidthConfig]="widthConfig">
+  <div class="employeeSearchTop">
+    <p>
+      <span><span>员工编码</span><input type="text" nz-input [(ngModel)]="searchCondition.bianma"></span>
+      <span><span>员工姓名</span><input type="text" nz-input [(ngModel)]="searchCondition.name"></span>
+      <span>
+        <button nz-button nzType="primary" (click)="searchF()">查询</button>
+        <button nz-button (click)="searchClear()">重置</button>
+        <a [hidden]="searchMore" (click)="searchMoreF(true);">展开 <i nz-icon nzType="down" nzTheme="outline"></i> </a>
+        <a [hidden]="!searchMore" (click)="searchMoreF(false)">收起 <i nz-icon nzType="up" nzTheme="outline"></i> </a>
+      </span>
+    </p>
+    <p [hidden]="!searchMore">
+      <span><span>员工性别</span>
+      <nz-radio-group [(ngModel)]="searchCondition.sex" style="    width: 200px;margin: 0 15px 0 5px;text-align: center">
+        <label nz-radio nzValue="1" style="margin-right: 20px;">男</label>
+        <label nz-radio nzValue="2">女</label>
+      </nz-radio-group></span>
+      <span><span>员工年龄</span><input type="text" nz-input [(ngModel)]="searchCondition.age"></span>
+      <span><span>员工状态</span><input type="text" nz-input [(ngModel)]="searchCondition.state"></span>
+    </p>
+
+
+  </div>
+  <nz-table id="employeeList" nzBordered #employeeLists [nzData]="employeeList" [nzFrontPagination]="false"
+    [nzShowPagination]="false" [nzScroll]="{ x: '900px', y: '340px' }" [nzWidthConfig]="widthConfig">
     <thead>
       <tr>
         <th nzLeft="0px">编码</th>
@@ -17,10 +40,10 @@
     <tbody>
       <ng-container *ngFor="let datas of employeeLists.data;let anIndex = index">
         <tr [hidden]="datas.edit">
-          <td nzLeft="0px">{{ datas.bianma }} -------下表是： {{ anIndex }}</td>
+          <td nzLeft="0px">{{ datas.bianma }} -------下标是： {{ anIndex }}</td>
           <td nzLeft="200px">{{ datas.name }}</td>
-          <td >{{ datas.sex | sex}}</td>
-          <td  [nzAlign]="'center'">{{ datas.age }}</td>
+          <td>{{ datas.sex | sex}}</td>
+          <td [nzAlign]="'center'">{{ datas.age }}</td>
           <td>{{ datas.job }}</td>
           <td>{{ datas.state }}</td>
           <td>{{ datas.remark }}</td>
@@ -30,9 +53,10 @@
           </td>
         </tr>
         <tr [hidden]="!datas.edit">
-          <td nzLeft="0px">{{ datas.bianma }} -------下表是： {{ anIndex }}</td>
+          <td nzLeft="0px">{{ datas.bianma }} -------下标是： {{ anIndex }}</td>
           <td nzLeft="200px"><input nz-input nzSize="small" [(ngModel)]="datas.name" /></td>
-          <td style="text-align:center;"><input nz-input nzSize="small" [(ngModel)]="datas.sex" /></td>
+          <td style="text-align:center;"><input nz-input nzSize="small" placeholder="0:女 ， 1:男 "
+              [(ngModel)]="datas.sex" /></td>
           <td><input nz-input nzSize="small" [(ngModel)]="datas.age" /></td>
           <td><input nz-input nzSize="small" [(ngModel)]="datas.job" /></td>
           <td><input nz-input nzSize="small" [(ngModel)]="datas.state" /></td>
@@ -45,6 +69,7 @@
       </ng-container>
     </tbody>
   </nz-table>
+  <p>查询条件是：{{searchConditionFinally | json}}，目前只按照姓名来查找！！！</p>
   <button nz-button
     (click)="addEmployeeList({ bianma: 'esss-ffff-0000', name: '新增索隆', sex: '1', age: '18', job: '剑客', state: '1', remark: '阿斯顿发' })">新增一条数据</button>
   <button nz-button (click)="employeeList[0].edit=true">修改第一条数据</button>
