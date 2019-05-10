@@ -1,5 +1,5 @@
 @import '../../../assets/css/anPublic';
-#register{
+#login{
   position:fixed;
   @include position(0,0,0,0);
   z-index: 1100;
@@ -35,21 +35,6 @@
         }
       }
     }
-    .xieyi{
-      text-align: center;
-    }
   }
-  .JokerAnXiYi{
-    @include goodPos(absolute,2);
-    @include border();
-    padding:20px;
-    background:#fff;
-    @include wh(600px,450px);
-    
-    .btnClose{
-      position: absolute;
-      bottom:10px;
-      right: 40px
-    }
-  }
+
 }

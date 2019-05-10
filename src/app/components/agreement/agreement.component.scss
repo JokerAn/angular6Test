@@ -1,0 +1,39 @@
+@import '../../../assets/css/anPublic';
+
+.agreement{
+    @include wh(100%,360px);
+    overflow: auto;
+}
+.protocol_paragraph_retract{
+    text-indent:2em;
+    line-height: 25px;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+}
+.protocol_paragraph{
+    line-height: 25px;
+    font-size: 14px;
+    color: #333;
+    text-align: left;
+}
+.p_retract{
+    text-indent:2em;
+}
+.protocol_title{
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    font-size: 14px;
+}
+.protocol_btn{
+    height: 45px;
+    line-height: 45px;
+    width: 250px;
+    margin: 20px auto;
+    background: #3b84ff;
+    color:#fff;
+    text-align: center;
+    border-radius: 3px;
+    cursor: pointer;
+}

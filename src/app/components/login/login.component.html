@@ -1,0 +1,14 @@
+<div id='login'>
+  
+  <div class='registerInputGroup'>
+    <ul>
+      <li><h3>登录</h3></li>
+      <li><span>用户名：</span><input nz-input type="text" [(ngModel)]='userName'></li>
+      <li><span>密码：</span><input type="password" nz-input [(ngModel)]='userPwd'></li>
+      <li><button nz-button nzType="primary" [nzLoading]='loading' nzBlock (click)="login()">登录</button></li>
+        <li><h2 [routerLink]="'/register'">没有账号，前去注册</h2>
+      </li>
+    </ul> 
+  </div>
+
+</div>

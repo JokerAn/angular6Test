@@ -27,6 +27,9 @@ import { EmployeeListComponent } from './components/employee-list/employee-list.
 import { SexPipe } from './pipe/sex.pipe';
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { RegisterComponent } from './components/register/register.component';
+import { AgreementComponent } from './components/agreement/agreement.component';
+import { LoginComponent } from './components/login/login.component';
+import { ChangePwdComponent } from './components/change-pwd/change-pwd.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +42,10 @@ import { RegisterComponent } from './components/register/register.component';
     EmployeeListComponent,
     SexPipe,
     AddEmployeeComponent,
-    RegisterComponent
+    RegisterComponent,
+    AgreementComponent,
+    LoginComponent,
+    ChangePwdComponent
   ],
   imports: [
     BrowserModule,
