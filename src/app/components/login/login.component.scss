@@ -3,7 +3,7 @@
   position:fixed;
   @include position(0,0,0,0);
   z-index: 1100;
-  background:url('../../../assets/images/registerBackground.jpg') no-repeat center center;
+  background:url('../../../assets/images/registerBackground.jpg') no-repeat center center #598dbf;
   background-size: cover;
   .registerInputGroup{
     @include goodPos(absolute,1);

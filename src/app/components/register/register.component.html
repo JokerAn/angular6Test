@@ -1,28 +1,33 @@
 <div id='register'>
-  我是注册页面
   <div class='registerInputGroup'>
     <ul>
-      <li><h3>注册</h3></li>
+      <li>
+        <h3>注册</h3>
+      </li>
       <li><span>用户名：</span><input nz-input type="text" [(ngModel)]='userName'></li>
       <li><span>密码：</span><input type="password" nz-input [(ngModel)]='userPwd'></li>
       <li><span>重复密码 ：</span><input type="password" nz-input [(ngModel)]='userPwd2'></li>
-      <li><span>手机号：</span><input type="number"  nz-input (focus)= 'scrollFunc($event)' [(ngModel)]='userPhone' maxlength='11'></li>
+      <li><span>手机号：</span><input type="number" nz-input (focus)='scrollFunc($event)' [(ngModel)]='userPhone'
+          maxlength='11'></li>
       <li [hidden]='checked'><button nz-button nzType="primary" [nzLoading]='loading' nzBlock disabled>注册</button></li>
-      <li [hidden]='!checked'><button nz-button nzType="primary" [nzLoading]='loading' nzBlock (click)="register()">注册</button></li>
-      <li><h2 [routerLink]="'/login'">已有账号，前去登录</h2></li>
+      <li [hidden]='!checked'><button nz-button nzType="primary" [nzLoading]='loading' nzBlock
+          (click)="register()">注册</button></li>
+      <li>
+        <h2 [routerLink]="'/login'">已有账号，前去登录</h2>
+      </li>
     </ul>
     <p class='xieyi'>
-      <label nz-checkbox [(ngModel)]="checked" >同意协议</label> 
+      <label nz-checkbox [(ngModel)]="checked">同意协议</label>
       <a (click)="JokerAnXiYiShow=true" title='点击查看详细'>JokerAn官网协议</a>
     </p>
   </div>
-<div [hidden]='!JokerAnXiYiShow' class='JokerAnXiYi'>
-  
+  <div [hidden]='!JokerAnXiYiShow' class='JokerAnXiYi'>
+
     <app-agreement></app-agreement>
-  
-  <div class='btnClose'>
-    <button nz-button (click)="JokerAnXiYiShow=false">关闭</button>
+
+    <div class='btnClose'>
+      <button nz-button (click)="JokerAnXiYiShow=false">关闭</button>
+    </div>
   </div>
-</div>
 
 </div>

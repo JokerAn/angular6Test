@@ -1,14 +1,14 @@
 <div id="addEmployeeBox" class="rightContentBox">
-  <h3>新增员工</h3>
+  <h3>{{pageTitle}}</h3>
   <div class="addEmployeeInfos anclear">
     <ul class="fl">
       <li>姓名</li>
-      <li><input nz-input  [(ngModel)]="employeeName" type="text"></li>
+      <li><input nz-input [(ngModel)]="employeeName" type="text"></li>
       <li>电话</li>
-      <li><input nz-input  [(ngModel)]="employeePhone" (keyup)="employeePhoneChange($event)" type="text"></li>
+      <li><input nz-input [(ngModel)]="employeePhone" (keyup)="employeePhoneChange($event)" type="text"></li>
       <li>出生年月</li>
       <li>
-        <nz-date-picker  [(ngModel)]="employeeBirthday"  [nzStyle]="inputTimeStyle"></nz-date-picker>
+        <nz-date-picker [(ngModel)]="employeeBirthday" [nzStyle]="inputTimeStyle" (ngModelChange)='changeBirthDay()'></nz-date-picker>
       </li>
       <li>性别</li>
       <li>
@@ -18,17 +18,22 @@
         </nz-radio-group>
       </li>
       <li>状态</li>
-      <li><input nz-input  [(ngModel)]="employeeState" type="text"></li>
+      <li><input nz-input [(ngModel)]="employeeState" type="text"></li>
+      <li>职务</li>
+      <li><input nz-input [(ngModel)]="employeeJob" type="text"></li>
+      <li>备注</li>
+      <li><input nz-input [(ngModel)]="employeeRemark" type="text"></li>
       <div class="addEmployeeAjax">
         <button nz-button nzType="primary" (click)="addEmployeeAjax()">提交</button>
       </div>
     </ul>
     <div class="fr">
-      <span class="upLoadFile upLoadFiles"> 
-        <img [src]="imgUrl" style="width:100px;height:100px"/>
-        <input style="border:1px solid" type="file"(change)="changeTouXiang($event)">原生更换头像
+      <span class="upLoadFile upLoadFiles">
+        <img [src]="imgUrl" style="width:100px;height:100px" />
+        <input style="border:1px solid" type="file" (change)="changeTouXiang($event)">原生更换头像
       </span>
+      <button nz-button (click)='justUpdateHeaderImg()'>更换头像</button>
     </div>
-    
+
   </div>
 </div>

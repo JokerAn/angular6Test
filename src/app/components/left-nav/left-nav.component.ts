@@ -28,7 +28,6 @@ export class LeftNavComponent implements OnInit {
   }
   gotopage(pageUrl: any, canshu = {}) { 
     this.router.navigate([pageUrl], {
-      // relativeTo: this.routerInfo,//基于当前路由跳转
       queryParams: canshu
     })
   }

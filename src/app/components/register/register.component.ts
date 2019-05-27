@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AnDataService } from 'src/app/services/an-data.service';
 import { AnHttpService } from 'src/app/services/an-http.service';
+import { Router } from '@angular/router';
+import { apiUrlsService } from 'src/app/services/api-urls.service';
 
 @Component({
   selector: 'app-register',
@@ -9,13 +11,14 @@ import { AnHttpService } from 'src/app/services/an-http.service';
 })
 export class RegisterComponent implements OnInit {
   checked = true;
-  userName ='安顺利';
+  userName ='123456';
   userPwd ='123456';
   userPwd2 ='123456';
-  userPhone ='18511888741';
+  userPhone ='18511111111';
   loading: false;
   JokerAnXiYiShow= false;
-  constructor(private anData: AnDataService,private anHttp:AnHttpService) { }
+  constructor(private anData: AnDataService, private anHttp: AnHttpService, private router: Router,
+  private apiUrls:apiUrlsService) { }
 
   ngOnInit() {
   }
@@ -65,9 +68,11 @@ export class RegisterComponent implements OnInit {
       return;
     } 
     console.log(canshu);
-    this.anHttp.post('http://127.0.0.1:3100/employee/addOneInfo', canshu, {}).subscribe((result:any) => { 
+    this.anHttp.post(this.apiUrls.register, canshu, {}).subscribe((result:any) => { 
       this.anData.showMsg(result.msg, 2000, 'warning');
-    })
-    
+      if (result.msg == '注册成功') { 
+        this.router.navigate(['/login'])
+      }
+    })    
   }
 }

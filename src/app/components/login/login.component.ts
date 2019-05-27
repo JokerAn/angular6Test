@@ -3,6 +3,7 @@ import { AnHttpService } from 'src/app/services/an-http.service';
 import { AnDataService } from 'src/app/services/an-data.service';
 import { Router } from '@angular/router';
 import { EmmitAlertService } from 'src/app/services/emmit-alert.service';
+import { apiUrlsService } from 'src/app/services/api-urls.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   userPwd = '123456';
   loading = false;
   constructor(private anHtpp: AnHttpService, private anData: AnDataService, private router: Router,
-    private emmitAlert:EmmitAlertService) { }
+    private emmitAlert: EmmitAlertService, public apiUrls: apiUrlsService) { }
 
   ngOnInit() {
     if (localStorage.userName) { 
@@ -29,12 +30,13 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     if (this.userName && this.userPwd) {
       console.log({ name: this.userName, password: this.userPwd });
-      this.anHtpp.get('http://127.0.0.1:3100/login?name='+this.userName+'&password='+ this.userPwd).subscribe(
+      this.anHtpp.get(this.apiUrls.login+'?name='+this.userName+'&password='+ this.userPwd).subscribe(
         (result: any) => {
           this.loading = false;
           console.log(result);
           if (result.msg == '登录成功') { 
             localStorage.userName = result.data[0].name;
+            localStorage.userId = result.data[0]['_id'];
             this.emmitAlert.send({ id: 'login_login', data: result.data[0] });
             this.router.navigate(['/home'], {
               // relativeTo: this.routerInfo,//基于当前路由跳转

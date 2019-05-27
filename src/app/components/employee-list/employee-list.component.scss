@@ -16,6 +16,10 @@
     height:28px;
     line-height: 28px;
     padding:4px 6px;
+    img{
+      @include wh(50px,50px);
+       cursor: pointer;
+    }
   }
 }
 .edits{
@@ -43,5 +47,16 @@
     a{
       padding:2px 5px;
     }
+  }
+}
+.userHeaderImgBig{
+  position: fixed;
+  @include position(0,0,0,0);
+  background: rgba(0,0,0,0.2);
+  z-index: 5000;
+  img{
+    @include wh(300px,300px);
+    @include goodPos(absolute,500);
+   
   }
 }

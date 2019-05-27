@@ -9,14 +9,18 @@
         <button nz-button (click)="searchClear()">重置</button>
         <a [hidden]="searchMore" (click)="searchMoreF(true);">展开 <i nz-icon nzType="down" nzTheme="outline"></i> </a>
         <a [hidden]="!searchMore" (click)="searchMoreF(false)">收起 <i nz-icon nzType="up" nzTheme="outline"></i> </a>
+        <button nz-button (click)="addEmployeeList()">新增员工</button>
       </span>
     </p>
     <p [hidden]="!searchMore">
-      <span><span>员工性别</span>
-      <nz-radio-group [(ngModel)]="searchCondition.sex" style="    width: 200px;margin: 0 15px 0 5px;text-align: center">
-        <label nz-radio nzValue="1" style="margin-right: 20px;">男</label>
-        <label nz-radio nzValue="2">女</label>
-      </nz-radio-group></span>
+      <span>
+        <span>员工性别</span>
+        <nz-radio-group [(ngModel)]="searchCondition.sex"
+          style="    width: 200px;margin: 0 15px 0 5px;text-align: center">
+          <label nz-radio nzValue="1" style="margin-right: 20px;">男</label>
+          <label nz-radio nzValue="2">女</label>
+        </nz-radio-group>
+      </span>
       <span><span>员工年龄</span><input type="text" nz-input [(ngModel)]="searchCondition.age"></span>
       <span><span>员工状态</span><input type="text" nz-input [(ngModel)]="searchCondition.state"></span>
     </p>
@@ -24,11 +28,12 @@
 
   </div>
   <nz-table id="employeeList" nzBordered #employeeLists [nzData]="employeeList" [nzFrontPagination]="false"
-    [nzShowPagination]="false" [nzScroll]="{ x: '900px', y: '340px' }" [nzWidthConfig]="widthConfig">
+    [nzShowPagination]="false" [nzScroll]="{ x: '980px', y: '340px' }" [nzWidthConfig]="widthConfig">
     <thead>
       <tr>
-        <th nzLeft="0px">编码</th>
-        <th nzLeft="200px">姓名</th>
+        <th nzLeft="0px">头像</th>
+        <th nzLeft="80px">编码</th>
+        <th nzLeft="280px">姓名</th>
         <th>性别</th>
         <th [nzAlign]="'center'">年龄</th>
         <th>职务</th>
@@ -40,21 +45,29 @@
     <tbody>
       <ng-container *ngFor="let datas of employeeLists.data;let anIndex = index">
         <tr [hidden]="datas.edit">
-          <td nzLeft="0px">{{ datas.bianma }} -------下标是： {{ anIndex }}</td>
-          <td nzLeft="200px">{{ datas.name }}</td>
+          <td class='textCenter' nzLeft="0px">
+            <img (click)='showUserImgBig(datas,$event);' [src]='datas.userHeaderImg_copy'
+             (error)="imgErrors($event)"[attr.error]='false' />
+            </td>
+          <td nzLeft="80px">-------下标是： {{ anIndex }}</td>
+          <td nzLeft="280px" nz-popover nzContent="点击进入详情" style='cursor:pointer' (click)="intiInfo(datas)">{{ datas.name }}</td>
           <td>{{ datas.sex | sex}}</td>
           <td [nzAlign]="'center'">{{ datas.age }}</td>
           <td>{{ datas.job }}</td>
           <td>{{ datas.state }}</td>
           <td>{{ datas.remark }}</td>
           <td nzRight="0px" class="edits">
-            <a (click)="deleteEmployeeListOneAlert(anIndex)">删除</a>
+            <a (click)="deleteEmployeeListOneAlert(anIndex,datas)">删除</a>
             <a (click)="eidtEmployeeOnleInfo(anIndex)">修改</a>
           </td>
         </tr>
         <tr [hidden]="!datas.edit">
-          <td nzLeft="0px">{{ datas.bianma }} -------下标是： {{ anIndex }}</td>
-          <td nzLeft="200px"><input nz-input nzSize="small" [(ngModel)]="datas.name" /></td>
+          <td>
+          <img (click)='showUserImgBig(datas,$event);' [src]='datas.userHeaderImg_copy'
+            (error)="imgErrors($event)" [attr.error]='false'/>
+          </td>
+          <td nzLeft="80px">-------下标是： {{ anIndex }}</td>
+          <td nzLeft="280px"><input nz-input nzSize="small" [(ngModel)]="datas.name" /></td>
           <td style="text-align:center;"><input nz-input nzSize="small" placeholder="0:女 ， 1:男 "
               [(ngModel)]="datas.sex" /></td>
           <td><input nz-input nzSize="small" [(ngModel)]="datas.age" /></td>
@@ -70,8 +83,9 @@
     </tbody>
   </nz-table>
   <p>查询条件是：{{searchConditionFinally | json}}，目前只按照姓名来查找！！！</p>
-  <button nz-button
-    (click)="addEmployeeList({ bianma: 'esss-ffff-0000', name: '新增索隆', sex: '1', age: '18', job: '剑客', state: '1', remark: '阿斯顿发' })">新增一条数据</button>
   <button nz-button (click)="employeeList[0].edit=true">修改第一条数据</button>
   <br>
+</div>
+<div class='userHeaderImgBig' [hidden]='!UserImgBig_show' (click)='UserImgBig_show=false' title='点击任意位置关闭'>
+  <img [src]="selectedUserHeaderImg" />
 </div>

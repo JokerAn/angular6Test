@@ -56,5 +56,59 @@ export class AnDataService {
   public showMsg(msg = '', time = 2500, type = 'success') {
     this.NzMessageService[type](msg, { nzDuration: time })
   }
-  
+//获取年月日1993-06-25
+  public annyr(time='0',fengefu='') {
+    if (time=='0') return;
+    var date = new Date(time);
+    let Y = date.getFullYear();
+    let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1);
+    let D = date.getDate();
+    var newdata = Y + fengefu + M + fengefu + D;
+    return newdata;
+  }
+//获取年月日时分秒1993-06-25 10:25:32
+  public annyrsfm(time='0',fengefu='') {
+    if (time=='0') return;
+    var date = new Date(time);
+    let Y = date.getFullYear();
+    let M = date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+    let D = date.getDate() < 10 ? '0' + date.getDate() : date.getDate();
+    let h = date.getHours();
+    let m = date.getMinutes();
+    let s = date.getSeconds();
+    var newdata = Y + fengefu + M + fengefu + D + ' ' + h + ':'+m +':'+ s;
+    return newdata;
+  }
+//获取时分秒 10:25:32
+  public ansfm(time = '0', fengefu = ':') {
+    if (time == '0') return;
+    var date = new Date(time);
+    let h = date.getHours();
+    let m = date.getMinutes();
+    let s = date.getSeconds();
+    var newdata = h + fengefu + m + fengefu + s;
+    return newdata;
+  }
+  //获取格式化后的 “ 数字 ”时间 时分秒0:00:00或者 23:59:59
+  public anNumberData(time = '0', o59 = 25) {
+    if (time == '0') return;
+    if (o59 == 25) {return time}
+    let times = new Date(time);
+    let myyear = times.getFullYear();
+    let mymonth: any = times.getMonth() + 1 < 10 ? '0' + (times.getMonth() + 1) : times.getMonth() + 1;
+    let myweekday: any = times.getDate() < 10 ? '0' + times.getDate(): times.getDate();
+    let states: any;
+    states = o59 > 25 ? '23:59:59' : '00:00:00';
+    return Date.parse(myyear + '/' + mymonth + '/' + myweekday + ' ' + states)
+
+  }
+  //根据年月日计算年龄
+  public getAgeByBirthday(time = '0') {
+    if (time == '0') return;
+    let newDate:any = +new Date();
+    let newTime = +this.annyr(newDate);
+    let passTime = +this.annyr(time);
+    let age = Math.floor((newTime - passTime) / 10000);
+    return age;
+  }
 }

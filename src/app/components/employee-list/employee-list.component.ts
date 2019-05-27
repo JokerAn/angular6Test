@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { Component, OnInit, Renderer2, ElementRef } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
 import { SexPipe } from '../../pipe/sex.pipe';
 import { AnDataService } from 'src/app/services/an-data.service';
 import { EmmitAlertService } from 'src/app/services/emmit-alert.service';
+import { AnHttpService } from 'src/app/services/an-http.service';
+import { apiUrlsService } from 'src/app/services/api-urls.service';
 
 @Component({
   selector: 'app-employee-list',
@@ -10,20 +12,23 @@ import { EmmitAlertService } from 'src/app/services/emmit-alert.service';
   styleUrls: ['./employee-list.component.scss']
 })
 export class EmployeeListComponent implements OnInit {
-  edit: false;
+  edit = false;
   canshu: any;
-  employeeList: any;
-  employeeListCopy: any;
-  widthConfig = ['200px', '100px', '100px', '100px', '100px', '100px', '100px', '100px'];
+  employeeList: any = [];
+  employeeListCopy: any = [];
+  widthConfig = ['80px', '200px', '100px', '100px', '100px', '100px', '100px', '100px', '100px'];
   searchMore: boolean = false;
   searchCondition: any = {
-    bianma: null,
-    name:null,
-    sex:null,
-    age: null,
-    state: null
-  }
-  constructor(private routeInfo: ActivatedRoute, private anData: AnDataService, public emmitAlert: EmmitAlertService) {
+    name: '',
+    sex: '',
+    age: '',
+    state: ''
+  };
+  selectedUserHeaderImg = '';
+  UserImgBig_show = false;
+  constructor(private routeInfo: ActivatedRoute, private anData: AnDataService, public emmitAlert: EmmitAlertService,
+    private anHttp: AnHttpService, private router: Router, private apiUrls: apiUrlsService,
+    private render2: Renderer2, private el: ElementRef) {
     this.routeInfo.queryParams.subscribe((res) => {
       this.canshu = res.id;
       console.log(res);
@@ -34,7 +39,7 @@ export class EmployeeListComponent implements OnInit {
         switch (emmitData.id) {
           case 'deleteEmployeeOneLine':
             if (emmitData.btnClick) {
-              this.deleteEmployeeListOneFun(this.anData.allUserAlert.datas.index);
+              this.deleteEmployeeListOneFun(this.anData.allUserAlert.datas);
             } else {
               console.log('你点击了取消按钮');
             }
@@ -52,31 +57,33 @@ export class EmployeeListComponent implements OnInit {
     this.getEmployee();
   }
   //请求员工list数据
-  getEmployee() { 
-    this.employeeList = [
-      { bianma: 'esss-ffff-0001', name: '张三', sex: null, age: '10', job: '屠夫', state: '2', remark: '我是张三' },
-      { bianma: 'esss-ffff-0003esss-ffff-0003esss-ffff-0003', name: '女帝', sex: '0', age: '18', job: '模特', state: '2', remark: '凤凰居民' },
-      { bianma: 'esss-ffff-0004', name: '娜美', sex: '0', age: '12', job: '司机', state: '1', remark: '宣传部规划' },
-      { bianma: 'esss-ffff-0002', name: '李四', sex: null, age: '13', job: '饲养员', state: '1', remark: '我是张三' },
-      { bianma: 'esss-ffff-0005', name: '路飞', sex: '1', age: '14', job: '海贼', state: '2', remark: '而非' },
-      { bianma: 'esss-ffff-0006', name: '山治', sex: '1', age: '15', job: 'w厨师', state: '2', remark: '撒旦法' },
-      { bianma: 'esss-ffff-0006', name: '山治大哥', sex: '1', age: '18', job: '力量', state: '2', remark: '防辐射的女' },
-      { bianma: 'esss-ffff-0006', name: '山治二哥', sex: '1', age: '25', job: '火', state: '2', remark: '昂和备案的说法' },
-      { bianma: 'esss-ffff-0006', name: '山治老爸', sex: '1', age: '58', job: '将军', state: '2', remark: '撒生日歌旦法' },
-      { bianma: 'esss-ffff-0007', name: '索隆', sex: '1', age: '18', job: '剑客', state: '1', remark: '阿斯顿发' }
-    ];
-    this.employeeList.map((item) => { 
-      item.edit = false;
+  getEmployee() {
+    let me = this;
+
+    this.anHttp.get(this.apiUrls.getEmployeeList, {}).subscribe((result: any) => {
+      this.anData.showMsg(result.msg);
+      if (result.msg.includes('成功')) {
+        this.employeeList = result.data;
+      } else {
+        this.employeeList = [];
+      }
+
+      this.employeeList.map((item: any) => {
+        item.edit = false;
+        item.userHeaderImg_copy = item.userHeaderImg ? this.apiUrls.baseImgUrl + item.userHeaderImg : '/assets/images/user@2x.png'
+      })
+      this.employeeListCopy = JSON.parse(JSON.stringify(this.employeeList));
     })
-    this.employeeListCopy = JSON.parse(JSON.stringify(this.employeeList));
+
   }
   //新增一条数据
-  addEmployeeList(res:any) { 
-    this.employeeList = [res, ...this.employeeList];
-    console.log(this.employeeList)
+  addEmployeeList() {
+    this.router.navigate(['/addemployee'], {
+      queryParams: { canshu: '123' }
+    })
   }
   //删除一行弹出告警
-  deleteEmployeeListOneAlert(indexs) { 
+  deleteEmployeeListOneAlert(indexs,l) {
     this.anData.allUserAlertShow(true, {
       id: 'deleteEmployeeOneLine',
       popShow: true,
@@ -86,40 +93,46 @@ export class EmployeeListComponent implements OnInit {
       btnClose: '取消',
       style: { width: '400px' },
       datas: {
-        index: indexs
+        index: indexs,
+        data: l,
       }
     });
   }
   //删除一行具体代码
-  deleteEmployeeListOneFun(indexs) { 
-    this.employeeList=this.employeeList.filter((item, index) => { 
-      if (index != indexs) { 
-        return item
+  deleteEmployeeListOneFun(data:any) {
+    let canshu = { id: data.data['_id'] };
+
+    
+    this.anHttp.post(this.apiUrls.delOneEmployee, canshu).subscribe((result: any) => { 
+      console.log(result);
+      this.anData.showMsg(result.msg);
+      if (result.msg.includes('成功')) { 
+        this.getEmployee();
       }
     })
-    this.anData.showMsg('删除成功');
+    
   }
   //点击修改
-  eidtEmployeeOnleInfo(indexs) { 
+  eidtEmployeeOnleInfo(indexs) {
     console.log(indexs);
     this.employeeList[indexs].edit = true;
   }
   //保存修改
-  saveEidtEmployeeOnleInfo(indexs) { 
+  saveEidtEmployeeOnleInfo(indexs) {
     this.employeeList[indexs].edit = false;
-    console.log(indexs);
-    console.log(this.employeeList);
-    console.log(this.employeeList[indexs]);
-    this.anData.showMsg('保存成功');
-    
+    console.log(1);
+    this.anHttp.post(this.apiUrls.updateOneEmployee, this.employeeList[indexs]).subscribe((result: any) => { 
+      console.log(result);
+      this.getEmployee();
+    })
   }
   //取消修改
-  notSaveEidtEmployeeOnleInfo(indexs) { 
+  notSaveEidtEmployeeOnleInfo(indexs) {
     this.getEmployee();
     console.log(this.employeeList);
   }
   //重置
-  searchClear() { 
+  searchClear() {
     for (let key in this.searchCondition) {
       this.searchCondition[key] = null;
     }
@@ -127,34 +140,55 @@ export class EmployeeListComponent implements OnInit {
 
   }
   //展开收起
-  searchMoreF(res:boolean) { 
+  searchMoreF(res: boolean) {
     if (res) {
       this.searchMore = true;
-    } else { 
+    } else {
       this.searchCondition.age = '';
       this.searchCondition.sex = null;
       this.searchCondition.state = '';
       this.searchMore = false;
     }
   }
-  public searchConditionFinally:any;
+  public searchConditionFinally: any;
   searchF() {
     console.log(this.employeeListCopy);
     this.searchConditionFinally = {};
-    for (let key in this.searchCondition) { 
-      if (this.searchCondition[key]) { 
+    for (let key in this.searchCondition) {
+      if (this.searchCondition[key]) {
         this.searchConditionFinally[key] = this.searchCondition[key]
       }
     }
-    this.employeeList = this.employeeListCopy.filter((item:any) => { 
-      if (item.name.includes(this.searchCondition.name||'')) { 
+    this.employeeList = this.employeeListCopy.filter((item: any) => {
+      if (item.name.includes(this.searchCondition.name || '')) {
         return item
       }
     })
     console.log(this.employeeList);
-    
-
-    
-    
+  }
+  //点击查看高清头像
+  showUserImgBig(l:any, e:any) {
+    const DATA_ERROR=e.target.getAttribute('error');
+    console.log(l.userHeaderImg);
+    if (l.userHeaderImg) {
+      if (DATA_ERROR == 'true') {
+        this.selectedUserHeaderImg = '/assets/images/userImgError.png';
+        this.UserImgBig_show = true;
+      } else {
+        this.selectedUserHeaderImg = l.userHeaderImg_copy;
+        this.UserImgBig_show = true;
+      }
+    }
+  }
+  imgErrors(e:any) {
+    console.log(e.target.attributes);
+    e.target.src = '/assets/images/userImgError.png';
+    this.render2.setAttribute(e.target, 'error', 'true');
+    return false;
+  }
+  //点击进入详情
+  intiInfo(l) { 
+    console.log(l);
+    this.router.navigate(['/addemployee'], { queryParams: { employee_id: l['_id'] } });
   }
 }

@@ -98,7 +98,7 @@ aside{
   z-index: 1000;
   position: fixed;
   width:220px;
-  @include border(#bbb,1px,0px);
+  // @include border(#bbb,1px,0px);
   left:0;top:60px;
   bottom:0;
   overflow-y: auto;

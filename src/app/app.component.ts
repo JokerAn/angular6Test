@@ -53,27 +53,7 @@ export class AppComponent {
     }
   }
   ngOnInit(): void {
-    this.login();
+    
   }
-  login() {
-    let data = {
-      // hiddeLoading:true,
-      username: 'renee.chan@renee-arts.com',
-      password:123456
-    };
-    this.anhttp.post(this.apiUrls.login, data).subscribe(
-      (request) => {
-        localStorage.user_token = request.tokenType + ' ' + request.token;
-        sessionStorage.changeIE = 'sss';
-        sessionStorage.emmitNames = '[]';//广播事件名称
-      },
-      (err) => {
-        console.log(err);
-      }
-    );
-  }
-
-  
-
   
 }
