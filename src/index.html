@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>JokerAn网站</title>
@@ -7,8 +8,240 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script type="text/javascript"
+    src="https://webapi.amap.com/maps?v=1.4.13&key=f1a8b4718d8031066fe77330cd1532df"></script>
 </head>
+
 <body class="body">
+  <div style='height:500px;display: none'>
+    <div  style='display: none'>
+      <style>
+        #container,
+        #mapContainer {
+          width: 80%;
+          height: 500px;
+          border: 1px solid red
+        }
+
+        #a1 {
+          background: red;
+          color: #fff;
+        }
+
+        .anTem {
+          border: 1px solid red;
+          background: yellow;
+          color: blue;
+          width: 200px;
+          height: 30px;
+        }
+      </style>
+      位置x：<input type="number" value=116.3 id='inputPostionx' placeholder="116">
+      位置y：<input type="number" value=39.9 id='inputPostiony' placeholder="39.9">
+      <button onclick="addPostion()">新增标记</button>
+      <button onclick="addCircle()">新增圆圈</button>
+      <button onclick="removeCircle()">移除圆圈</button>
+      <button onclick="openInfo()">天安门</button>
+      <div id="container"></div>
+      <script>
+
+        var map = new AMap.Map('container', {
+          zoom: 11,//缩放级别// PC上，参数zoom可设范围：[3,18]；// 移动端：参数zoom可设范围：[3,19]
+          center: [116.397428, 39.90923],//设置地图中心点坐标
+          // layers: [new AMap.TileLayer.Satellite()],  //设置图层,可设置成包含一个或多个图层的数组
+          // mapStyle: 'amap://styles/whitesmoke',  //设置地图的显示样式
+          viewMode: '3D',  //设置地图模式
+          lang: 'zh_cn',  //设置地图语言类型
+        });
+        //实时路况图层
+        var trafficLayer = new AMap.TileLayer.Traffic({
+          zIndex: 10
+        });
+        map.add(trafficLayer);//添加图层到地图
+
+        //新增一个标记
+        var marker = new AMap.Marker({
+          position: [116, 39.9]//位置
+        })
+        map.add(marker);//添加到地图
+        var lineArr = []//线路
+
+        function addPostion() {
+          var gdPostionx = parseFloat(document.getElementById('inputPostionx').value);
+          var gdPostiony = parseFloat(document.getElementById('inputPostiony').value);
+          lineArr.push([gdPostionx, gdPostiony]);
+          console.log(lineArr[lineArr.length - 1]);
+
+          var iconsss = new AMap.Icon({
+            size: new AMap.Size(50, 50),    // 图标尺寸
+            image: '../sps/imgs/icon2.png',  // Icon的图像
+            imageOffset: new AMap.Pixel(-10, -160),  // 图像相对展示区域的偏移量，适于雪碧图等
+            // imageSize: new AMap.Size(40, 50)   // 根据所设置的大小拉伸或压缩图片
+          });
+          var content = '<div class="anTem">阿萨德发生的</div>';
+
+          var marker = new AMap.Marker({
+            // icon: iconsss,//自定义图标 跟content 二选一
+            content: content,  // 自定义点标记覆盖物内容
+            title: lineArr[lineArr.length - 1],
+            // offset: new AMap.Pixel(-10, -10),//图标偏移
+            position: lineArr[lineArr.length - 1]//位置
+          })
+
+
+
+
+          var polyline = new AMap.Polyline({
+            path: lineArr,          //设置线覆盖物路径
+            strokeColor: "#3366FF", //线颜色
+            strokeWeight: 5,        //线宽
+            strokeStyle: "solid",   //线样式
+          });
+          var infoWindow = new AMap.InfoWindow({ //创建信息窗体
+            isCustom: true,  //使用自定义窗体
+            content: '<div id="a1">信息窗体</div>', //信息窗体的内容可以是任意html片段
+            offset: new AMap.Pixel(16, -45)
+          });
+          var onMarkerClick = function (e) {
+            infoWindow.open(map, e.target.getPosition());//打开信息窗体
+            //e.target就是被点击的Marker
+          }
+          map.add(marker);//添加到地图
+          // marker.setIcon(iconsss);//向已创建好的 Marker 添加 Icon：
+          map.add(polyline);
+          marker.on('click', onMarkerClick);//绑定click事件
+        }
+        var circle
+        function addCircle() {
+          circle = new AMap.Circle({
+            center: [116.4, 39.9], // 圆心位置
+            radius: 2000,  //半径
+            strokeColor: "#F33",  //线颜色
+            strokeOpacity: 1,  //线透明度
+            strokeWeight: 3,  //线粗细度
+            fillColor: "#ee2200",  //填充颜色
+            fillOpacity: 0.25 //填充透明度
+          });
+          map.add(circle);
+        }
+        function removeCircle() {
+          map.remove(circle);
+        }
+        // 地图图块加载完成后触发
+        map.on('complete', function () {
+          // AMap.plugin('AMap.ToolBar', function () {//异步加载插件
+          //   var toolbar = new AMap.ToolBar();
+          //   map.addControl(toolbar);
+          // });
+          AMap.plugin(['AMap.ToolBar', 'AMap.Driving'], function () {//异步同时加载多个插件
+            var toolbar = new AMap.ToolBar();
+            map.addControl(toolbar);
+            var driving = new AMap.Driving();//驾车路线规划
+            driving.search(/*参数*/);
+
+          });
+          console.log('地图图块加载完');
+          //获取中心点
+          var currentCenter = map.getCenter();
+          console.log(currentCenter);
+          // 设置地图级别，级别为数字。
+          // PC上，参数zoom可设范围：[3,18]；
+          // 移动端：参数zoom可设范围：[3,19]
+          map.setZoom(12);
+          // 获取地图级别
+          var currentZoom = map.getZoom();
+          console.log(currentZoom);
+          // 同时设置缩放级别和中心点经纬度 简写
+          // map.setZoomAndCenter(14, [116.205467, 39.907761]);
+          // 构造矢量圆形
+          // //新增图层
+          // var layer1 = new AMap.TileLayer.Satellite();
+          // var layer2 = new AMap.TileLayer.RoadNet();
+          // var layers = [
+          //   layer1,
+          //   layer2
+          // ]
+          // // 添加到地图上
+          // map.add(layers);
+        });
+        function mapClick(ev) {
+          // 触发事件的对象
+          var target = ev.target;
+          // 触发事件的地理坐标，AMap.LngLat 类型
+          var lnglat = ev.lnglat;
+          // 触发事件的像素坐标，AMap.Pixel 类型
+          var pixel = ev.pixel;
+          // 触发事件类型
+          var type = ev.type;
+          console.log('你触发的事件是 ' + type + ' 你点击的位置是 ' + lnglat);
+          console.log();
+        }
+        //绑定click事件
+        map.on('click', mapClick);
+        //解绑click事件
+        map.off('click', mapClick);
+        var infoWindow;
+        function openInfo() {
+          //构建信息窗体中显示的内容
+          var info = [];
+          info.push(`
+              <div class=''>
+                <div>
+                  <img style="float:left;" src=" https://webapi.amap.com/images/autonavi.png "/>
+                </div> 
+                <div style="padding:7px 0px 0px 0px;"><h4>天安门</h4>
+                  <p class='input-item'>电话 : 010-84107000   邮编 : 100102</p>
+                  <p class='input-item'>地址 :北京市朝阳区天安门</p>
+                </div>
+              </div>`);
+
+          infoWindow = new AMap.InfoWindow({
+            anchor: 'bottom-center',
+            content: info.join("")  //使用默认信息窗体框样式，显示信息内容
+          });
+
+          infoWindow.open(map, [116.3979, 39.907886]);
+        }
+        //右键
+
+        //创建右键菜单
+        var contextMenu = new AMap.ContextMenu();
+
+        //右键放大
+        contextMenu.addItem("放大一级", function () {
+          map.zoomIn();
+        }, 0);
+
+        //右键缩小
+        contextMenu.addItem("缩小一级", function () {
+          map.zoomOut();
+        }, 1);
+
+        //右键显示全国范围
+        contextMenu.addItem("缩放至全国范围", function (e) {
+          map.setZoomAndCenter(4, [108.946609, 34.262324]);
+        }, 2);
+
+        //右键添加Marker标记
+        contextMenu.addItem("添加标记", function (e) {
+          var marker = new AMap.Marker({
+            map: map,
+            position: contextMenuPositon //基点位置
+          });
+        }, 3);
+
+        //地图绑定鼠标右击事件——弹出右键菜单
+        map.on('rightclick', function (e) {
+          contextMenu.open(map, e.lnglat);
+          contextMenuPositon = e.lnglat;
+        });
+
+        contextMenu.open(map, [116.397, 39.918]);
+      </script>
+    </div>
+  </div>
+
   <app-root></app-root>
 </body>
+
 </html>

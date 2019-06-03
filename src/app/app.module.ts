@@ -30,6 +30,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { AgreementComponent } from './components/agreement/agreement.component';
 import { LoginComponent } from './components/login/login.component';
 import { ChangePwdComponent } from './components/change-pwd/change-pwd.component';
+import { MyMapComponent } from './components/my-map/my-map.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { ChangePwdComponent } from './components/change-pwd/change-pwd.component
     RegisterComponent,
     AgreementComponent,
     LoginComponent,
-    ChangePwdComponent
+    ChangePwdComponent,
+    MyMapComponent
   ],
   imports: [
     BrowserModule,

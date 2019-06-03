@@ -28,4 +28,10 @@
   <li nz-menu-item (click)="openHandlers()">
     <span title><i nz-icon type="setting"></i>企业账户</span>
   </li>
+  <li nz-submenu nz-submenu [(nzOpen)]="openMap.sub3" (nzOpenChange)="openHandler('sub3')">
+    <span title><i nz-icon type="setting"></i>常用功能</span>
+    <ul>
+      <li nz-menu-item (click)="gotopage('/myAap')">高德地图</li>
+    </ul>
+  </li>
 </ul>
