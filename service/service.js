@@ -13,6 +13,7 @@ var app = express();
 var indexRouter = require('./routes/curriculum');
 var usersRouter = require('./routes/users');
 var employeeRouter = require('./routes/employee');
+var wxxcx = require('./wxxcx/demo.js');
 
 const pathLib = require("path");
 //定义将上传的文件放到当前文件夹下的uploads文件夹中
@@ -28,6 +29,7 @@ app.use(bodyParser.json())//解决 application/json  req.body获取不到前端�
 app.use('/curriculum', indexRouter);
 app.use('/users', usersRouter);
 app.use('/employee', employeeRouter);
+app.use('/wxxcx', wxxcx);
 app.get('/', function (req, res, next) {
   var msg = [
     { name: '/curriculum/getList', doSomething: '我是curriculum.js 我是查询所有课程' },
