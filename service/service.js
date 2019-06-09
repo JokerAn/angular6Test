@@ -13,7 +13,7 @@ var app = express();
 var indexRouter = require('./routes/curriculum');
 var usersRouter = require('./routes/users');
 var employeeRouter = require('./routes/employee');
-var wxxcx = require('./wxxcx/demo.js');
+var wxxcx = require('./wxxcx/wxxcx.js');//微信小程序
 
 const pathLib = require("path");
 //定义将上传的文件放到当前文件夹下的uploads文件夹中
