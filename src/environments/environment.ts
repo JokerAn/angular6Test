@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://www.jokeran.com:3100',
-  baseImgUrl: 'http://www.jokeran.com/anUploadFiles/',
+  baseUrl: 'https://www.jokeran.com:3100',
+  baseImgUrl: 'https://www.jokeran.com/anUploadFiles/',
   // qiniuUrl: 'http://upload-z1.qiniup.com',//七牛上传图片地址
   // qiniuImgUrl: 'http://images.mtoliv.com',//七牛展示图片
 };
