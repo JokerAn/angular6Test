@@ -1,6 +1,4 @@
 const express = require('express');
-const request = require('request');
-
 //用于post请求
 const bodyParser = require('body-parser');
 //用于上传文件
@@ -43,24 +41,37 @@ app.get('/', function (req, res, next) {
 })
 app.get('/llxh', function (req, res, next) {
   
+var http = require("http");
  
 var data = {
-  "type":"PER_PERSON","token":"d2633f6b7b7fa410a398e64141be6d3c","callerId":"1001",
-  "callerNos":["18615615281"],"calledNo":"23","payload":{"userId":"141","customerId":41}
+    username:"name",
+    password:"123456"
 };
-// data = JSON.stringify(data);
-request({
-  url: "http://port.51lianlian.cn/api/v1/binding",
-  method: "POST",
-  json: true,
-  headers: {
-      "content-type": "application/json",
-  },
-  body: data
-}, function(error, response, body) {
-  console.log(body)
-  res.send(body);
+data = JSON.stringify(data);
+ 
+var opt = {
+    host:'http://port.51lianlian.cn/api/v1/binding',
+    port:'8080',
+    method:'POST',
+    path:'/loginForeign.jspx',
+    headers:{
+        "Content-Type": 'application/json',
+        "Content-Length": data.length
+    }
+}
+ 
+var body = '';
+var req = http.request(opt, function(res) {
+    console.log("response: " + res.statusCode);
+    res.on('data',function(data){
+        body += data;
+    }).on('end', function(){
+        console.log(body)
+    });
+}).on('error', function(e) {
+    console.log("error: " + e.message);
 })
+req.send(data);
 })
 //登录
 app.get('/login', function (req, res, next) {

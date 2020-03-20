@@ -1,6 +1,4 @@
 const express = require('express');
-const request = require('request');
-
 //用于post请求
 const bodyParser = require('body-parser');
 //用于上传文件
@@ -42,25 +40,13 @@ app.get('/', function (req, res, next) {
   res.send(msg);
 })
 app.get('/llxh', function (req, res, next) {
-  
- 
-var data = {
-  "type":"PER_PERSON","token":"d2633f6b7b7fa410a398e64141be6d3c","callerId":"1001",
-  "callerNos":["18615615281"],"calledNo":"23","payload":{"userId":"141","customerId":41}
-};
-// data = JSON.stringify(data);
-request({
-  url: "http://port.51lianlian.cn/api/v1/binding",
-  method: "POST",
-  json: true,
-  headers: {
-      "content-type": "application/json",
-  },
-  body: data
-}, function(error, response, body) {
-  console.log(body)
-  res.send(body);
-})
+  var msg = [
+    { name: '/curriculum/getList', doSomething: '我是curriculum.js 我是查询所有课程' },
+    { name: '/curriculum/delete/oneList', doSomething: '我是curriculum.js 我是删除一节课程' },
+    { name: '/users/getList', doSomething: '我是users.js我的作用是 查询所有学生信息' },
+    { name: '/users/addOneInfo', doSomething: '我是users.js我的作用是 添加一条学生信息' }
+  ];
+  res.send(msg);
 })
 //登录
 app.get('/login', function (req, res, next) {

@@ -1,5 +1,4 @@
 const express = require('express');
-var http = require('http')
 //用于post请求
 const bodyParser = require('body-parser');
 const MongoDBZSGC = require('./connectMongoDB');
